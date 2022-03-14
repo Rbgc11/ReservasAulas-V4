@@ -113,12 +113,12 @@ public class Aulas implements IAulas{
 			return representacion;
 		}
 
-		
+		@Override
 		public void comenzar() {
 			
 		}
 
-		
+		@Override	
 		public void terminar() {
 			
 		}

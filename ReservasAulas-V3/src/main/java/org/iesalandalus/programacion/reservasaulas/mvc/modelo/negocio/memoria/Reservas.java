@@ -280,13 +280,11 @@ public class Reservas implements IReservas{
 		}
 		return disponibilidad;
 	}
-
-	public void comenzar() {
-
-		
+	@Override
+	public void comenzar() {		
 	}
 
+	@Override	
 	public void terminar() {
-		
 	}
 }

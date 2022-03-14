@@ -53,7 +53,7 @@ public class PermanenciaPorTramo extends Permanencia{
 	}
 	@Override
 	public String toString() {
-		return super.toString() + ", tramo=" + tramo + "";
+		return super.toString() + ", tramo=" + tramo;
 		}
 
 }

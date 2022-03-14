@@ -22,7 +22,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 public class Aulas implements IAulas{
 	
 	private static final String NOMBRE_FICHEROS_AULAS = "datos/aulas.dat";
-	private List<Aula> coleccionAulas = new ArrayList<>();
+	private List<Aula> coleccionAulas;
 
 
 		public Aulas() {
@@ -49,20 +49,22 @@ public class Aulas implements IAulas{
 			ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(dtficherosaulas));
 			Aula aula = null;
 				do {
+					// se asigna el profesor que viene del string
 					aula = (Aula) objIn.readObject();
 					if (aula!=null) {
 						insertar(aula);
 					}
 				}while(aula != null);	
 				objIn.close();
+				// ordención de los catch para evitar errores
 			} catch (ClassNotFoundException e)  {
-				System.out.println("ERROR: No puedo encontrar la clase que tengo que leer.");	
+				System.out.println("No se puede encontrar la clase para leer.");	
 			} catch (FileNotFoundException e)  {
-				System.out.println("ERROR: No puedo abrir el fichero de aulas.");	
+				System.out.println("No se puede abrir el fichero de aulas.");	
 			} catch (EOFException e)  {
 				System.out.println("Fichero aulas leído satisfactoriamente.");	
 			} catch (IOException e)  {
-				System.out.println("ERROR inesperado de Entrada/Salida.");	
+				System.out.println("Error inesperado.");	
 			} catch (OperationNotSupportedException e)  {
 				System.out.println(e.getMessage());	
 			}
@@ -82,11 +84,11 @@ public class Aulas implements IAulas{
 				for (Aula aula : coleccionAulas)
 					objOut.writeObject(aula);
 				objOut.close();
-			System.out.println("Fichero aulas escrito satisfactoriamente.");
+			System.out.println("Fichero aulas creado satisfactoriamente.");
 			} catch (FileNotFoundException e)  {
 				System.out.println("No se puede abrir el fichero de aulas.");	
 			} catch (IOException e)  {
-				System.out.println("Error inesperado de Entrada/Salida.");	
+				System.out.println("Error inesperado.");	
 			}
 		}
 		

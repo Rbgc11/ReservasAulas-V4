@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.modelo;
+	package org.iesalandalus.programacion.reservasaulas.mvc.modelo;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.FactoriaFuentesDatosFicheros;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.FactoriaFuentesDatosMemoria;
@@ -6,20 +6,21 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Fa
 
 public enum FactoriaFuenteDatos {
 	MEMORIA {
-		@Override
 		public IFuenteDatos crear() {
 			IFuenteDatos memoria=new FactoriaFuentesDatosMemoria();
 			return memoria;
 		}
 	},
 	FICHEROS {
-		@Override
 		public IFuenteDatos crear() {
 			IFuenteDatos ficheros=new FactoriaFuentesDatosFicheros();
 			return ficheros;
 		}
 	};
 	
+	FactoriaFuenteDatos() {
+		
+	}
 	
 	public abstract IFuenteDatos crear();
 }

@@ -64,9 +64,9 @@ public class Reservas implements IReservas{
 		objIn.close();
 			
 		} catch (ClassNotFoundException e)  {
-			System.out.println("ERROR: No puedo encontrar la clase que tengo que leer.");	
+			System.out.println("No se puede encontrar la clase para leer.");	
 		} catch (FileNotFoundException e)  {
-			System.out.println("ERROR: No puedo abrir el fichero de reservas.");	
+			System.out.println("No se puede abrir el fichero de reservas.");	
 		} catch (EOFException e)  {
 			System.out.println("Fichero reservas leído satisfactoriamente.");	
 		} catch (IOException e)  {
@@ -91,11 +91,11 @@ public class Reservas implements IReservas{
 			for (Reserva reserva : coleccionReservas)
 				objOut.writeObject(reserva);
 			objOut.close();
-		System.out.println("Fichero aulas escrito satisfactoriamente.");
+		System.out.println("Fichero reservas escrito satisfactoriamente.");
 		} catch (FileNotFoundException e)  {
-			System.out.println("No se puede abrir el fichero de aulas.");	
+			System.out.println("No se puede abrir el fichero de reservas.");	
 		} catch (IOException e)  {
-			System.out.println("Erro inesperado de Entrada/Salida.");	
+			System.out.println("Erro inesperado.");	
 		}
 	}
 

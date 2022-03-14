@@ -12,24 +12,22 @@ public interface IAulas {
 		//Método terminar
 		void terminar();
 
-		// Método List<Aula> getAulas(), coge una copia del método copiaProfunda para evitar aliasing
+		// Método List<Aula> getAulas(), coge una copia del método copiaProfunda 
 		List<Aula> getAulas();
 
 		// Método getNumAulas, obtiene tamaño de la coleccion
 		int getNumAulas();
 
-		// Método insertar, valida null, si no es null comprueba si en coleccionAulas no está
-		// metida el aula y si no está la añadimos
+		// Método insertar Aula
 		void insertar(Aula aula) throws OperationNotSupportedException;
 
-		// Método buscar
+		// Método buscar AULA
 		Aula buscar(Aula aula);
 
-		// Método borrar, validamos null, si no es null comprueba si la colección tiene el aula
-		// y si está dentro la borra
+		// Método borrar Aula
 		void borrar(Aula aula) throws OperationNotSupportedException;
 
-		// Metodo representar: guarda arrayList en toString pasando por iterador
+		// Metodo representar
 		List<String> representar();
 
 }

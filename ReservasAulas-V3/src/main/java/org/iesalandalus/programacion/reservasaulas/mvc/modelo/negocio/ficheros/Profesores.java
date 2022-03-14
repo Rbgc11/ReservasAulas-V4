@@ -58,13 +58,13 @@ public class Profesores implements IProfesores {
 				objIn.close();
 					
 				} catch (ClassNotFoundException e)  {
-					System.out.println("ERROR: No puedo encontrar la clase que tengo que leer.");	
+					System.out.println("No se puede encontrar la clase para leer.");	
 				} catch (FileNotFoundException e)  {
-					System.out.println("ERROR: No puedo abrir el fichero de profesores.");	
+					System.out.println("No se puede abrir el fichero de profesores.");	
 				} catch (EOFException e)  {
 					System.out.println("Fichero profesores leído satisfactoriamente.");	
 				} catch (IOException e)  {
-					System.out.println("ERROR inesperado de Entrada/Salida.");	
+					System.out.println("Error inesperado.");	
 				} catch (OperationNotSupportedException e)  {
 					System.out.println(e.getMessage());	
 				}
@@ -89,7 +89,7 @@ public class Profesores implements IProfesores {
 				} catch (FileNotFoundException e)  {
 					System.out.println("No se puede abrir el fichero de aulas.");	
 				} catch (IOException e)  {
-					System.out.println("Error inesperado de Entrada/Salida.");	
+					System.out.println("Error inesperado.");	
 				}
 			}
 	// Método setProfesores(Profesores)

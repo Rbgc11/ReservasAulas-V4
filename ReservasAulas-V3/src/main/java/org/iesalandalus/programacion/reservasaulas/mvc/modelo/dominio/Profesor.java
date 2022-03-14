@@ -120,10 +120,10 @@ public class Profesor implements Serializable {
 	@Override
 	public String toString() {
 		if(telefono == null) {
-			return "nombre=" + nombre + ", correo=" + correo ;
+			return "nombre=" + this.nombre + ", correo=" + this.correo ;
 		} else {
 		
-		return "nombre=" + nombre + ", correo=" + correo + ", telefono=" + telefono;
+		return "nombre=" + this.nombre + ", correo=" + this.correo + ", telefono=" + this.telefono;
 		}
 	}
 

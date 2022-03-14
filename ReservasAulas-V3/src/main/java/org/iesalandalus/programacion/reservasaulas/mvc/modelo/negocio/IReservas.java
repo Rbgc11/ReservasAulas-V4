@@ -21,6 +21,10 @@ public interface IReservas {
 
 	//Método getNumAulas 
 	int getNumReservas();
+	
+	// Método insertar Reserva
+		void insertar(Reserva reserva) throws OperationNotSupportedException;
+
 
 	//Método buscar Reserva
 	Reserva buscar(Reserva reserva);
@@ -43,10 +47,4 @@ public interface IReservas {
 	//Método consultarDisponibilidad
 	boolean consultarDisponibilidad(Aula aula, Permanencia permanencia);
 	
-	//Método getReservaAulaDia
-	Reserva getReservaAulaDia(Aula aula, LocalDate fecha);
-
-	// Método insertar Reserva
-	void insertar(Reserva reserva) throws OperationNotSupportedException;
-
 }

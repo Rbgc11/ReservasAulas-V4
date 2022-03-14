@@ -45,7 +45,7 @@ public abstract class Permanencia implements Serializable {
 
 	@Override
 	public String toString() {
-		return "día=" + dia.format(FORMATO_DIA);
+		return "día=" + this.dia.format(FORMATO_DIA);
 	}
 	
 

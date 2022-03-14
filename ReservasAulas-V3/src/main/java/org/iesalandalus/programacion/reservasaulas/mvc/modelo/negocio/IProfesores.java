@@ -12,9 +12,10 @@ public interface IProfesores {
 
 	//Método terminar
 	void terminar();
+	// Método List<Profesor> getProfesores(), coge una copia del método copiaProfunda 
 	List<Profesor> getProfesores();
 
-	//Método getNumProfesores 
+	//Método getNumProfesores, obtiene tamaño de la coleccion
 	int getNumProfesores();
 
 	//Método insertar Profesor
