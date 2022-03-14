@@ -1,9 +1,10 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public abstract class Permanencia {
+public abstract class Permanencia implements Serializable {
 	private LocalDate dia;
     protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -37,13 +38,15 @@ public abstract class Permanencia {
 
 	//Metodos abstractos que van a heredar 
 	public abstract int getPuntos();
+	@Override
 	public abstract int hashCode();
+	@Override
 	public abstract boolean equals(Object obj);
 
 	@Override
 	public String toString() {
-		return "dia=" +this.dia.format(FORMATO_DIA) ;
+		return "día=" + dia.format(FORMATO_DIA);
 	}
-
+	
 
 }

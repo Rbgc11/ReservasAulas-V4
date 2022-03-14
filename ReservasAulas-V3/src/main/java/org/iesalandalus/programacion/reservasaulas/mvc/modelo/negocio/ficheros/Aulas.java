@@ -1,9 +1,17 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria;
+package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
 import java.util.Comparator;
 
 import javax.naming.OperationNotSupportedException;
@@ -13,6 +21,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 
 public class Aulas implements IAulas{
 	
+	private static final String NOMBRE_FICHEROS_AULAS = "datos/aulas.dat";
 	private List<Aula> coleccionAulas = new ArrayList<>();
 
 
@@ -26,6 +35,58 @@ public class Aulas implements IAulas{
 				throw new NullPointerException("No se pueden copiar unas aulas nulas.");
 			} else {
 				setAulas(aulas);
+			}
+		}
+		@Override
+		public void comenzar() {
+			leer();
+		}
+		
+		//Método leer
+		private void leer() {
+			File dtficherosaulas = new File(NOMBRE_FICHEROS_AULAS); //creación fichero
+			try {
+			ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(dtficherosaulas));
+			Aula aula = null;
+				do {
+					aula = (Aula) objIn.readObject();
+					if (aula!=null) {
+						insertar(aula);
+					}
+				}while(aula != null);	
+				objIn.close();
+			} catch (ClassNotFoundException e)  {
+				System.out.println("ERROR: No puedo encontrar la clase que tengo que leer.");	
+			} catch (FileNotFoundException e)  {
+				System.out.println("ERROR: No puedo abrir el fichero de aulas.");	
+			} catch (EOFException e)  {
+				System.out.println("Fichero aulas leído satisfactoriamente.");	
+			} catch (IOException e)  {
+				System.out.println("ERROR inesperado de Entrada/Salida.");	
+			} catch (OperationNotSupportedException e)  {
+				System.out.println(e.getMessage());	
+			}
+		}
+		//Método terminar
+		@Override
+		public void terminar() {
+			escribir();
+		}
+		
+		//Método escribir
+		private void escribir() {
+			File dtficherosaulas = new File(NOMBRE_FICHEROS_AULAS);
+			try {
+				FileOutputStream fileOut=new FileOutputStream(dtficherosaulas);
+				ObjectOutputStream objOut=new ObjectOutputStream(fileOut);
+				for (Aula aula : coleccionAulas)
+					objOut.writeObject(aula);
+				objOut.close();
+			System.out.println("Fichero aulas escrito satisfactoriamente.");
+			} catch (FileNotFoundException e)  {
+				System.out.println("No se puede abrir el fichero de aulas.");	
+			} catch (IOException e)  {
+				System.out.println("Error inesperado de Entrada/Salida.");	
 			}
 		}
 		
@@ -46,10 +107,6 @@ public class Aulas implements IAulas{
 		// Método copiaProfundaAulas
 		private List<Aula> copiaProfundaAulas(List<Aula> listaAulas) {
 			List<Aula> copiaProAulas = new ArrayList<>();
-			
-			Comparator<Aula> comparador=Comparator.comparing(Aula::getNombre);
-			Collections.sort(coleccionAulas, comparador);
-			
 			Iterator<Aula> iterador = listaAulas.iterator();
 			while (iterador.hasNext()) {
 				copiaProAulas.add(new Aula(iterador.next()));
@@ -113,13 +170,4 @@ public class Aulas implements IAulas{
 			return representacion;
 		}
 
-		
-		public void comenzar() {
-			
-		}
-
-		
-		public void terminar() {
-			
-		}
 	}

@@ -1,9 +1,10 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
 import java.util.Objects;
+import java.io.Serializable;
 
 
-public class Profesor { //Atributos 
+public class Profesor implements Serializable {
     private static final String ER_TELEFONO = "[6-9][0-9]{8}";
     private static final String ER_CORREO = "([a-zA-z0-9.-_]{1,})(\\@[a-zA-z]{1,})(\\.[a-z]{1,3})";
     private String nombre;
@@ -125,6 +126,7 @@ public class Profesor { //Atributos
 		return "nombre=" + nombre + ", correo=" + correo + ", telefono=" + telefono;
 		}
 	}
+
 }
 
 

@@ -1,8 +1,9 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Aula {
+public class Aula implements Serializable { 
 	//Atributos
 	private static final float PUNTOS_POR_PUESTO = (float) 0.5;
 	private static final int MIN_PUESTOS = 10;
@@ -84,6 +85,11 @@ public class Aula {
 	@Override
 	public String toString() {
 		return "nombre=" + getNombre() + ", puestos=" + getPuestos();
+	}
+	
+	//Método compareTo()
+	public int compareTo(Aula aula) {
+		return this.getNombre().compareTo(aula.getNombre());
 	}
 	
 

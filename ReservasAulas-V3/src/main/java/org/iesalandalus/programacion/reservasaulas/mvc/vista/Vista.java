@@ -14,7 +14,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanenci
 
 
 public class Vista implements IVista {
-   	private static final String ERROR = "ERROR: ---- ";
+   	private static final String ERROR = "ERROR";
     private static final String NOMBRE_VALIDO= "Nombre válido";
 	private static final String CORREO_VALIDO="Correo válido";
 	private IControlador Icontrolador;
@@ -26,7 +26,7 @@ public class Vista implements IVista {
 	//Método setControlador
 	@Override
 	public void setControlador (IControlador controlador){
-		this.Icontrolador = (IControlador) controlador;
+		this.Icontrolador = controlador;
 	}
 
 	//Método comenzar
@@ -54,7 +54,7 @@ public class Vista implements IVista {
 			Icontrolador.insertarAula(Consola.leerAula());
 			System.out.println("Aula insertada correctamente.");
 		} catch (NullPointerException |OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class Vista implements IVista {
 			Icontrolador.borrarAula(Consola.leerAula());
 			System.out.println("Aula borrada correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -132,6 +132,7 @@ public class Vista implements IVista {
 	//Método buscarProfesor
 	public void buscarProfesor() {
 		Consola.mostrarCabecera("Buscar profesor");
+		List<String> listaprofesores = Icontrolador.representarProfesores();
 		Profesor profesor = null;
 		try {
 			profesor = Consola.leerProfesor();

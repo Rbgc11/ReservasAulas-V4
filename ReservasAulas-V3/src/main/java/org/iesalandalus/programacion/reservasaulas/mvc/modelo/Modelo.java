@@ -1,7 +1,8 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo;
 
+import java.util.List;
+import java.util.Iterator;
 
-	import java.util.List;
 
 import javax.naming.OperationNotSupportedException; 
 	import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
@@ -17,11 +18,28 @@ import javax.naming.OperationNotSupportedException;
 		    private IAulas aulas;
 		    private IReservas reservas;
 		    
-		    public Modelo(){   
-		    	aulas = FactoriaFuenteDatos.MEMORIA.crear().crearAulas();
-				profesores =  FactoriaFuenteDatos.MEMORIA.crear().crearProfesores();
-				reservas = FactoriaFuenteDatos.MEMORIA.crear().crearReservas();
-		    }
+		    public Modelo(IFuenteDatos fuenteDatos) {
+				aulas=fuenteDatos.crearAulas();
+				profesores=fuenteDatos.crearProfesores();
+				reservas=fuenteDatos.crearReservas();
+			}
+		    
+		  //Método comenzar
+			@Override
+			public void comenzar() {
+				aulas.comenzar();
+				profesores.comenzar();
+				reservas.comenzar();
+			}
+			
+			//Método terminar
+			@Override
+			public void terminar() {
+				aulas.terminar();
+				profesores.terminar();
+				reservas.terminar();
+			}
+			
 			@Override
 			public List<Aula> getAulas(Aula aula) {
 				return aulas.getAulas();

@@ -19,11 +19,11 @@ public class Controlador implements IControlador{
 	public Controlador(IModelo modelo, IVista vista) 
 	{
 		if (modelo == null) {
-			throw new IllegalArgumentException(" El modelo no puede ser nulo.");
+			throw new NullPointerException(" El modelo no puede ser nulo.");
 		}
 		
 		if (vista == null) {
-			throw new IllegalArgumentException(" La vista no puede ser nula.");
+			throw new NullPointerException(" La vista no puede ser nula.");
 		}
 		
 		this.Imodelo = modelo;
@@ -34,12 +34,14 @@ public class Controlador implements IControlador{
 	// Método comenzar
 		@Override
 		public void comenzar()  {
+			Imodelo.comenzar();
 			Ivista.comenzar();
 		}
 
 		// Método terminar
 		@Override
 		public void terminar() {
+			Imodelo.terminar();
 			Ivista.salir();
 		}
 

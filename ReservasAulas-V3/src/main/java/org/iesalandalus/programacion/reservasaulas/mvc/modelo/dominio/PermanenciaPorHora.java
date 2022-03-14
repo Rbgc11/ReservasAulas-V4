@@ -22,7 +22,7 @@ public class PermanenciaPorHora extends Permanencia {
 	public PermanenciaPorHora(PermanenciaPorHora permanencia) {
 		super(permanencia);
 		if (permanencia == null) {
-			throw new NullPointerException ("ERROR: No se puede copiar una permanencia nula.");
+			throw new NullPointerException (" No se puede copiar una permanencia nula.");
 		} else {
 		setHora(permanencia.getHora());
 		}
@@ -72,6 +72,7 @@ public class PermanenciaPorHora extends Permanencia {
 	// Método toString
 	@Override
 	public String toString() {
-		return "hora=" + hora.format(FORMATO_HORA);
+		return super.toString() + ", hora=" + FORMATO_HORA.format(getHora());
 	}
+
 }

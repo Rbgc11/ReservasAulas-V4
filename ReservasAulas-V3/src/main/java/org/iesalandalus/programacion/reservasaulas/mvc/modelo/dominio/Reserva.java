@@ -1,9 +1,10 @@
 
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Reserva {
+public class Reserva implements Serializable {
 	//Atributos
 	private Profesor profesor;
 	private Aula aula;
@@ -92,7 +93,7 @@ public class Reserva {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(aula, permanencia, profesor);
+		return Objects.hash(aula, permanencia);
 	}
 
 	@Override
@@ -102,14 +103,14 @@ public class Reserva {
 		if (!(obj instanceof Reserva))
 			return false;
 		Reserva other = (Reserva) obj;
-		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia)
-				&& Objects.equals(profesor, other.profesor);
+		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia);
 	}
 
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s, puntos=%.1f", profesor, aula, permanencia, getPuntos());
 	}
+
 
 	
 }

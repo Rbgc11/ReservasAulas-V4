@@ -1,6 +1,5 @@
 	package org.iesalandalus.programacion.reservasaulas.mvc.vista;
 
-import  org.iesalandalus.programacion.utilidades.Entrada;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

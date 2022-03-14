@@ -7,7 +7,11 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 
 public interface IProfesores {
+	//Método comenzar
+	void comenzar();
 
+	//Método terminar
+	void terminar();
 	List<Profesor> getProfesores();
 
 	//Método getNumProfesores 

@@ -1,12 +1,20 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria;
+package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 
 import javax.naming.OperationNotSupportedException;
@@ -20,8 +28,9 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
 public class Reservas implements IReservas{
 	// Atributos
-	private static final float MAX_PUNTOS_PROFESOR_MES = 150.0f;
-	private List<Reserva> coleccionReservas = new ArrayList<>();
+	private static final float MAX_PUNTOS_PROFESOR_MES = 200.0f;
+	private List<Reserva> coleccionReservas;
+	private static final String NOMBRE_FICHEROS_RESERVAS = "datos/reservas.dat";
 
 	// Constructor por defecto
 	public Reservas() {
@@ -34,6 +43,59 @@ public class Reservas implements IReservas{
 			throw new NullPointerException(" No se pueden copiar reservas nulas.");
 		} else {
 			setReservas(reservas);
+		}
+	}
+	//Método comenzar
+	@Override
+	public void comenzar() {
+		leer();
+	}
+	
+	//Método leer
+	private void leer() {
+		File dtFicherosReservas = new File(NOMBRE_FICHEROS_RESERVAS);
+		try {
+		ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(dtFicherosReservas));
+		Reserva reserva = null;
+		do {
+			reserva = (Reserva) objIn.readObject();
+			insertar(reserva);
+		}while(reserva != null);
+		objIn.close();
+			
+		} catch (ClassNotFoundException e)  {
+			System.out.println("ERROR: No puedo encontrar la clase que tengo que leer.");	
+		} catch (FileNotFoundException e)  {
+			System.out.println("ERROR: No puedo abrir el fichero de reservas.");	
+		} catch (EOFException e)  {
+			System.out.println("Fichero reservas leído satisfactoriamente.");	
+		} catch (IOException e)  {
+			System.out.println("ERROR inesperado de Entrada/Salida.");	
+		} catch (OperationNotSupportedException e)  {
+			System.out.println(e.getMessage());	
+		}
+	}
+	
+	//Método terminar
+	@Override
+	public void terminar() {
+		escribir();
+	}
+	
+	//Método escribir
+	private void escribir() {
+		File dtFicherosReservas = new File(NOMBRE_FICHEROS_RESERVAS);
+		try {
+			FileOutputStream fileOut=new FileOutputStream(dtFicherosReservas);
+			ObjectOutputStream objOut=new ObjectOutputStream(fileOut);
+			for (Reserva reserva : coleccionReservas)
+				objOut.writeObject(reserva);
+			objOut.close();
+		System.out.println("Fichero aulas escrito satisfactoriamente.");
+		} catch (FileNotFoundException e)  {
+			System.out.println("No se puede abrir el fichero de aulas.");	
+		} catch (IOException e)  {
+			System.out.println("Erro inesperado de Entrada/Salida.");	
 		}
 	}
 
@@ -108,7 +170,7 @@ public class Reservas implements IReservas{
 	// Método esMesSiguienteOPosterior
 	private boolean esMesSiguienteOPosterior(Reserva reserva) {
 		if (reserva == null) {
-			throw new NullPointerException("ERROR: La reserva no puede ser nula");
+			throw new NullPointerException("La reserva no puede ser nula");
 		}
 		boolean mesSiguiente = false;
 		if (reserva.getPermanencia().getDia().compareTo(LocalDate.now().plusMonths(1).withDayOfMonth(1)) != -1) {
@@ -231,7 +293,7 @@ public class Reservas implements IReservas{
 				listaResAula.add(new Reserva(reserva));
 			}
 		}
-	//	Collections.sort(listaResAula);
+		//Collections.sort(listaResAula);
 		return listaResAula;
 	}
 
@@ -279,14 +341,5 @@ public class Reservas implements IReservas{
 			}
 		}
 		return disponibilidad;
-	}
-
-	public void comenzar() {
-
-		
-	}
-
-	public void terminar() {
-		
 	}
 }
