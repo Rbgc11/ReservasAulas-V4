@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class PermanenciaPorHora extends Permanencia {
+public class PermanenciaPorHora  extends Permanencia implements Comparable<Permanencia> {
 	private final static int PUNTOS = 3;
 	private final static LocalTime HORA_INICIO = LocalTime.of(8, 0);
 	private final static LocalTime HORA_FIN = LocalTime.of(22, 0);
@@ -54,7 +54,7 @@ public class PermanenciaPorHora extends Permanencia {
 //	Métodos hashChode y equals
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDia(), hora);
+		return Objects.hash(hora);
 	}
 
 	@Override
@@ -69,10 +69,16 @@ public class PermanenciaPorHora extends Permanencia {
 		return Objects.equals(getDia(), other.getDia()) && hora == other.hora;
 	}
 
-	// Método toString
+	//Método toString
 	@Override
 	public String toString() {
-		return super.toString() + ", hora=" + FORMATO_HORA.format(getHora());
+		return super.toString() + ", hora=" + hora + "";
 	}
 
+	// Método compareTo realizado como en PermanenciaPorTramo, en este caso se realiza un casting implícito 
+	// con PermanenciaPorHora
+	@Override
+	public int compareTo(Permanencia otraPermanencia) {
+		return this.getHora().compareTo(((PermanenciaPorHora)otraPermanencia).getHora());
+	}
 }

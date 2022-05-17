@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Aula implements Serializable { 
 	//Atributos
-	private static final float PUNTOS_POR_PUESTO =  0.5f;
+	private static final float PUNTOS_POR_PUESTO = (float) 0.5f;
 	private static final int MIN_PUESTOS = 10;
 	private static final int MAX_PUESTOS = 100;
 	private String nombre;
@@ -57,13 +57,13 @@ public class Aula implements Serializable {
     }
     
     public float getPuntos() {
-		float puntos = getPuestos() * PUNTOS_POR_PUESTO;
+		float puntos = puestos * PUNTOS_POR_PUESTO;
         return puntos;
     }
     
 	public static Aula getAulaFicticia(String aula){		
 		Aula aulafic = new Aula("DAW", 20);
-		return aulafic;
+		return new Aula(aulafic);
 	}
 
     

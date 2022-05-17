@@ -4,7 +4,7 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Reserva implements Serializable {
+public class Reserva implements Comparable<Reserva>, Serializable {
 	//Atributos
 	private Profesor profesor;
 	private Aula aula;
@@ -21,9 +21,9 @@ public class Reserva implements Serializable {
 		if(reserva == null) {
 			throw new NullPointerException("No se puede copiar una reserva nula.");
 		} else {
-	       setProfesor(reserva.profesor);
-	       setAula(reserva.aula);
-	       setPermanencia(reserva.permanencia);
+	       setProfesor(reserva.getProfesor());
+	       setAula(reserva.getAula());
+	       setPermanencia(reserva.getPermanencia());
 		}
 	}
 
@@ -106,11 +106,41 @@ public class Reserva implements Serializable {
 		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia);
 	}
 
-	@Override
-	public String toString() {
-		return String.format("%s, %s, %s, puntos=%.1f", profesor, aula, permanencia, getPuntos());
+	//Método toString
+		@Override
+		public String toString() {
+			return profesor.toString() + ", " + aula.toString() + ", " + permanencia.toString() + ", puntos=" + String.format("%.1f", getPuntos()) + "";
+		}
+		
+		//Método compareTo
+		@Override
+		public int compareTo(Reserva o) {
+			int comparadorAula = getAula().getNombre().compareTo(o.getAula().getNombre());
+
+			if (comparadorAula == 0) {
+
+				int comparadorFecha = getPermanencia().getDia().compareTo(o.getPermanencia().getDia());
+				if (comparadorFecha == 0) {
+					if (getPermanencia() instanceof PermanenciaPorTramo
+							&& o.getPermanencia() instanceof PermanenciaPorTramo) {
+						if (((PermanenciaPorTramo) getPermanencia()).getTramo() == Tramo.MANANA
+								&& ((PermanenciaPorTramo) o.getPermanencia()).getTramo() == Tramo.TARDE) {
+							return -1;
+						} else if (((PermanenciaPorTramo) getPermanencia()).getTramo() == Tramo.TARDE
+								&& ((PermanenciaPorTramo) o.getPermanencia()).getTramo() == Tramo.MANANA) {
+							return 1;
+						} else {
+							return 0;
+						}
+					} else {
+						return ((PermanenciaPorHora) getPermanencia()).getHora()
+								.compareTo(((PermanenciaPorHora) o.getPermanencia()).getHora());
+					}
+				}
+				return comparadorFecha;
+
+			}
+			return comparadorAula;
+		}
+
 	}
-
-
-	
-}

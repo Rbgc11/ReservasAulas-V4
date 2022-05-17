@@ -28,10 +28,14 @@ public abstract class Permanencia implements Serializable {
 
 	private void setDia(LocalDate dia)  {
 		if(dia==null) {
-			throw new NullPointerException("El día de una permanencia no puede ser nulo.");
-		} else {		
-		this.dia = LocalDate.of(dia.getYear(), dia.getMonth(), dia.getDayOfMonth());
+			throw new NullPointerException ("ERROR: El día de una permanencia no puede ser nulo.");
 		}
+			LocalDate fechaActual = LocalDate.now();
+			if(dia.compareTo(fechaActual) < 0) {
+				throw new IllegalArgumentException("ERROR: No puedes introducir una fecha anterior a la actual.");
+			}
+			
+			this.dia = dia;
 
 }
 
@@ -48,5 +52,6 @@ public abstract class Permanencia implements Serializable {
 		return "día=" + this.dia.format(FORMATO_DIA);
 	}
 	
+	public abstract int compareTo(Permanencia otraPermanencia);
 
 }

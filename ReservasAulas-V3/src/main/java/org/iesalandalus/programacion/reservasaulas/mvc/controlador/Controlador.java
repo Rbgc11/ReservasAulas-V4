@@ -42,81 +42,96 @@ public class Controlador implements IControlador{
 		@Override
 		public void terminar() {
 			Imodelo.terminar();
-			Ivista.salir();
+			//Ivista.salir();
 		}
 
 		// Método insertarAula
+		@Override
 		public void insertarAula(Aula aula) throws OperationNotSupportedException {
 			Imodelo.insertarAula(aula);
 		}
 		
 		// Método insertarProfesor
+		@Override
 		public void insertarProfesor(Profesor profesor) throws OperationNotSupportedException {
 			Imodelo.insertarProfesor(profesor);
 		}
 		
 		// Método borrarAula
+		@Override
 		public void borrarAula(Aula aula) throws OperationNotSupportedException {
 			Imodelo.borrarAula(aula);
 		}
 		
 		// Método borrarProfesor
+		@Override
 		public void borrarProfesor(Profesor profesor) throws OperationNotSupportedException {
 			Imodelo.borrarProfesor(profesor);
 		}
 		
 		// Método buscarAula
+		@Override
 		public Aula buscarAula(Aula aula) {
 			return Imodelo.buscarAula(aula);
 		}
 		
 		// Método buscarProfesor
+		@Override
 		public Profesor buscarProfesor(Profesor profesor) {
 			return Imodelo.buscarProfesor(profesor);
 		}
 
 		// Método representarAulas
+		@Override
 		public List<String> representarAulas() {
 			return Imodelo.representarAulas();
 		}
 
 		// Método representarProfesores
+		@Override
 		public List<String> representarProfesores() {
 			return Imodelo.representarProfesores();
 		}
 
 		// Método representarReservas
+		@Override
 		public List<String>representarReservas() {
 			return Imodelo.representarReservas();
 		}
 		
 		// Método realizarReservas
+		@Override
 		public void realizarReserva(Reserva reserva) throws OperationNotSupportedException {
 			Imodelo.realizarReserva(reserva);
 		}
 
 		// Método anularReservas
+		@Override
 		public void anularReserva(Reserva reserva) throws OperationNotSupportedException {
 			Imodelo.anularReserva(reserva);
 
 		}
 
 		// Método getReservasProfesor(Profesor)
+		@Override
 		public List<Reserva> getReservasProfesor(Profesor profesor) {
 			return Imodelo.getReservasProfesor(profesor);
 		}
 
 		// Método getReservasAula(Aula)
+		@Override
 		public List<Reserva> getReservasAula(Aula aula) {
 			return Imodelo.getReservasAula(aula);
 		}
 
 		// Método getReservasPermanencia(Permanencia)
+		@Override
 		public List<Reserva> getReservasPermanencia(Permanencia permanencia) {
 			return Imodelo.getReservasPermanencia(permanencia);
 		}
 
 		// Método consultarDisponibilidad(Aula,Permanencia)
+		@Override
 		public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 			return Imodelo.consultarDisponibilidad(aula, permanencia);
 		}

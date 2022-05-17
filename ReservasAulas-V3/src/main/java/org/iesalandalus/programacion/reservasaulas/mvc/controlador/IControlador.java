@@ -50,10 +50,10 @@ public interface IControlador {
 	// Método anularReservas
 	void anularReserva(Reserva reserva) throws OperationNotSupportedException;
 
-	// Método  getReservasProfesor
+	// Método  getReservasAula
 	List<Reserva> getReservasAula(Aula aula);
 
-	// Método getReservasAula
+	// Método getReservasProfesor
 	List<Reserva> getReservasProfesor(Profesor profesor);
 
 	// Método getReservasPermanencia

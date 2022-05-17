@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class PermanenciaPorTramo extends Permanencia{
+public class PermanenciaPorTramo extends Permanencia implements Comparable<Permanencia> {
 	
 	private Tramo tramo;
 	private static final int PUNTOS = 10;
@@ -17,8 +17,11 @@ public class PermanenciaPorTramo extends Permanencia{
 	public PermanenciaPorTramo(PermanenciaPorTramo permanencia) {
 		
 		super(permanencia);
-		setTramo(permanencia.getTramo());
-	}
+		if (permanencia == null) {
+			throw new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
+		} else {
+			setTramo(permanencia.getTramo());
+		}	}
 	
 	public Tramo getTramo() {
 		return tramo;
@@ -44,9 +47,7 @@ public class PermanenciaPorTramo extends Permanencia{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof PermanenciaPorTramo))
 			return false;
 		PermanenciaPorTramo other = (PermanenciaPorTramo) obj;
 		return Objects.equals(getDia(), other.getDia()) && (tramo == other.tramo);
@@ -55,5 +56,9 @@ public class PermanenciaPorTramo extends Permanencia{
 	public String toString() {
 		return super.toString() + ", tramo=" + tramo;
 		}
+	@Override
+	public int compareTo(Permanencia otraPermanencia) {
+		return this.getDia().compareTo(otraPermanencia.getDia());
+	}
 
 }
