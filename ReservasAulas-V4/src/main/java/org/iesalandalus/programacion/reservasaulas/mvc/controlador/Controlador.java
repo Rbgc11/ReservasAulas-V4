@@ -135,4 +135,22 @@ public class Controlador implements IControlador{
 		public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 			return Imodelo.consultarDisponibilidad(aula, permanencia);
 		}
+
+		@Override
+		public Profesor getProfesores() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Aula getAulas() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Reserva getReservas() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}

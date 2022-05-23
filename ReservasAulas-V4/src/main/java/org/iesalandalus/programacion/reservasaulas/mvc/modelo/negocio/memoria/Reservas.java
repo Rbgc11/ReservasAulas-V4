@@ -122,8 +122,20 @@ public class Reservas implements IReservas{
 	
 	//Método getPuntosGastadosReserva
 	private float getPuntosGastadosReserva(Reserva reserva) {
-		return reserva.getPuntos();
+		List<Reserva> listadoReservasProfesor = getReservasProfesorMes(reserva.getProfesor(),
+				reserva.getPermanencia().getDia());
+
+		float sumaPuntosTotales = 0;
+
+		Iterator<Reserva> iterador = listadoReservasProfesor.iterator();
+
+		while (iterador.hasNext()) {
+			sumaPuntosTotales = sumaPuntosTotales + iterador.next().getPuntos();
+		}
+
+		return sumaPuntosTotales;
 	}
+	
 
 	// Método List<Reserva> getReservasProfesorMes
 	private List<Reserva> getReservasProfesorMes(Profesor profesor, LocalDate fecha) {
@@ -259,25 +271,15 @@ public class Reservas implements IReservas{
 			throw new NullPointerException("No se puede consultar la disponibilidad de una permanencia nula.");
 		}
 		boolean disponibilidad = true;
+		
 		Iterator<Reserva> iterador = coleccionReservas.iterator();
 		while (iterador.hasNext()) {
-			Reserva reserva = iterador.next();
-			if (!esMesSiguienteOPosterior(Reserva.getReservaFicticia(aula, permanencia))) {
+			Reserva comprobar = iterador.next();
+			if (permanencia.equals(comprobar.getPermanencia()) && aula.equals(comprobar.getAula())) {
 				disponibilidad = false;
-			} else if (aula.equals(reserva.getAula()) && permanencia.getDia().equals(reserva.getPermanencia().getDia())) {
-				if ((permanencia instanceof PermanenciaPorHora && reserva.getPermanencia() instanceof PermanenciaPorTramo)|| (permanencia instanceof PermanenciaPorTramo && reserva.getPermanencia() instanceof PermanenciaPorHora)) {
-					disponibilidad = false;
-				} else if (permanencia instanceof PermanenciaPorHora && reserva.getPermanencia() instanceof PermanenciaPorHora) {
-					if (((PermanenciaPorHora) permanencia).getHora().equals(((PermanenciaPorHora) reserva.getPermanencia()).getHora())) {
-						disponibilidad = false;
-					}
-				} else if (permanencia instanceof PermanenciaPorTramo&& reserva.getPermanencia() instanceof PermanenciaPorTramo) {
-					if (((PermanenciaPorTramo) permanencia).getTramo().equals(((PermanenciaPorTramo) reserva.getPermanencia()).getTramo())) {
-						disponibilidad = false;
-					}
-				}
 			}
 		}
+	
 		return disponibilidad;
 	}
 	@Override

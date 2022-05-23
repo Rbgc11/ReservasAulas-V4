@@ -62,5 +62,11 @@ public interface IControlador {
 	// Método consultarDisponibilidad
 	boolean consultarDisponibilidad(Aula aula, Permanencia permanencia);
 
+	Profesor getProfesores();
+
+	Aula getAulas();
+
+	Reserva getReservas();
+
 
 }

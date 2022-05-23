@@ -1,5 +1,6 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.vista;
+package org.iesalandalus.programacion.reservasaulas.mvc.vista.texto;
 
+import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
 
 public enum Opcion {
 	//Opciones
@@ -81,7 +82,7 @@ public enum Opcion {
 		    }; 
 	
 	//Atributos
-	private static Vista Vista;
+	private static VistaTexto Vista;
 	private String mensajeAmostrar;
 
 	//Método opcion
@@ -99,11 +100,11 @@ public enum Opcion {
 	public abstract void ejecutar();
 
 	//SetVista
-	protected static void setVista(Vista vista) {
-		if (vista == null) {
+	protected static void setVista(VistaTexto vistaTexto) {
+		if (vistaTexto == null) {
 			throw new NullPointerException("La vista no pueda ser nula.");
 		}
-		Opcion.Vista = vista;
+		Opcion.Vista = vistaTexto;
 	}
 
 	@Override
@@ -124,5 +125,15 @@ public enum Opcion {
 	    return (ordinal >= 0 && ordinal <= values().length - 1);
 	    }
 
+	public static void setVista(org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista vista2) {
+		// TODO Auto-generated method stub
+		
 	}
+
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 

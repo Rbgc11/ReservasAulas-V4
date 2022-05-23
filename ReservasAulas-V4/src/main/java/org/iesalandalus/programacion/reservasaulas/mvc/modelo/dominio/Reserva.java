@@ -143,4 +143,14 @@ public class Reserva implements Comparable<Reserva>, Serializable {
 			return comparadorAula;
 		}
 
+		public String getNombre() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public String getTelefono() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}

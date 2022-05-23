@@ -77,14 +77,15 @@ public class Profesores implements IProfesores {
 		if (profesor == null) {
 			throw new NullPointerException(" No se puede buscar un profesor nulo.");
 		}
-		Profesor profesorEncontrado = null;
-		int indice = coleccionProfesores.indexOf(profesor);
-		if (indice == -1) {
-			profesorEncontrado = null;
-		} else {
-			profesorEncontrado = new Profesor(coleccionProfesores.get(indice));
+		Iterator<Profesor> iterador = coleccionProfesores.iterator();
+
+		while (iterador.hasNext()) {
+			Profesor profesorBuscado = iterador.next();
+			if (profesor.equals(profesorBuscado)) {
+				return new Profesor(profesorBuscado);
+			}
 		}
-		return profesorEncontrado;
+		return null;
 	}
 
 	// Método borrar
