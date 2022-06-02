@@ -17,6 +17,12 @@ public interface IControlador {
 	// Método terminar
 	void terminar();
 	
+	List<Aula>getAulas();
+	
+	List<Profesor>getProfesores();
+	
+	List<Reserva>getReservas();
+	
 	// Método insertarAula
 	void insertarAula(Aula aula) throws OperationNotSupportedException;
 	
@@ -62,11 +68,6 @@ public interface IControlador {
 	// Método consultarDisponibilidad
 	boolean consultarDisponibilidad(Aula aula, Permanencia permanencia);
 
-	Profesor getProfesores();
-
-	Aula getAulas();
-
-	Reserva getReservas();
 
 
 }

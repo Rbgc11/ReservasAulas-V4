@@ -61,7 +61,7 @@
                               </TableView>
                               <HBox alignment="CENTER" prefHeight="114.0" prefWidth="601.0">
                                  <children>
-                                    <Button fx:id="btnAbrirAnadirProf" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#acAbrirAnadirProf" prefHeight="40.0" prefWidth="160.0" text="Añadir Profesor">
+                                    <Button fx:id="btnAbrirAnadirProf" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#acAnadirProf" prefHeight="40.0" prefWidth="160.0" text="Añadir Profesor">
                                        <HBox.margin>
                                           <Insets left="20.0" right="50.0" />
                                        </HBox.margin>
@@ -73,7 +73,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirBuscarProf" mnemonicParsing="false" onAction="#acAbrirBuscarProf" prefHeight="40.0" prefWidth="160.0" text="Buscar Profesor">
+                                    <Button fx:id="btnAbrirBuscarProf" mnemonicParsing="false" onAction="#acBuscarProf" prefHeight="40.0" prefWidth="160.0" text="Buscar Profesor">
                                        <graphic>
                                           <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -82,7 +82,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirEliminarProf" mnemonicParsing="false" onAction="#acAbrirEliminarProf" prefHeight="39.0" prefWidth="172.0" text="Eliminar Profesor">
+                                    <Button fx:id="btnAbrirEliminarProf" mnemonicParsing="false" onAction="#acEliminarProf" prefHeight="39.0" prefWidth="172.0" text="Eliminar Profesor">
                                        <graphic>
                                           <ImageView fitHeight="32.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -120,7 +120,7 @@
                               </TableView>
                               <HBox alignment="CENTER_LEFT" prefHeight="104.0" prefWidth="766.0">
                                  <children>
-                                    <Button fx:id="btnAbrirAnadirAula" mnemonicParsing="false" onAction="#acAbrirAnadirAula" prefHeight="40.0" prefWidth="160.0" text="Añadir Aula">
+                                    <Button fx:id="btnAbrirAnadirAula" mnemonicParsing="false" onAction="#acAnadirAula" prefHeight="40.0" prefWidth="160.0" text="Añadir Aula">
                                        <HBox.margin>
                                           <Insets left="20.0" right="50.0" />
                                        </HBox.margin>
@@ -132,7 +132,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirBuscarAula" mnemonicParsing="false" onAction="#acAbrirBuscarAula" prefHeight="40.0" prefWidth="160.0" text="Buscar Aula">
+                                    <Button fx:id="btnAbrirBuscarAula" mnemonicParsing="false" onAction="#acBuscarAula" prefHeight="40.0" prefWidth="160.0" text="Buscar Aula">
                                        <graphic>
                                           <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -141,7 +141,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirEliminarAula" mnemonicParsing="false" onAction="#acAbrirEliminarAula" prefHeight="39.0" prefWidth="172.0" text="Eliminar Aula">
+                                    <Button fx:id="btnAbrirEliminarAula" mnemonicParsing="false" onAction="#acEliminarAula" prefHeight="39.0" prefWidth="172.0" text="Eliminar Aula">
                                        <graphic>
                                           <ImageView fitHeight="32.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -181,7 +181,7 @@
                               </TableView>
                               <HBox alignment="CENTER_LEFT" prefHeight="104.0" prefWidth="766.0">
                                  <children>
-                                    <Button fx:id="btnAbrirAnadirReserva" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#acAbrirAnadirReserva" prefHeight="40.0" prefWidth="160.0" text="Añadir Reserva">
+                                    <Button fx:id="btnAbrirAnadirReserva" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#acAnadirReserva" prefHeight="40.0" prefWidth="160.0" text="Añadir Reserva">
                                        <HBox.margin>
                                           <Insets left="20.0" right="50.0" />
                                        </HBox.margin>
@@ -193,7 +193,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirBuscarReserva" mnemonicParsing="false" onAction="#acAbrirBuscarReserva" prefHeight="40.0" prefWidth="160.0" text="Buscar Reserva">
+                                    <Button fx:id="btnAbrirBuscarReserva" mnemonicParsing="false" onAction="#acBuscarReserva" prefHeight="40.0" prefWidth="160.0" text="Buscar Reserva">
                                        <graphic>
                                           <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -202,7 +202,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnAbrirEliminarReserva" mnemonicParsing="false" onAction="#acAbrirEliminarReserva" prefHeight="39.0" prefWidth="172.0" text="Eliminar Reserva">
+                                    <Button fx:id="btnAbrirEliminarReserva" mnemonicParsing="false" onAction="#acEliminarReserva" prefHeight="39.0" prefWidth="172.0" text="Eliminar Reserva">
                                        <graphic>
                                           <ImageView fitHeight="32.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

@@ -1,119 +1,110 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.controladores;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.iesalandalus.programacion.reservasaulas.mvc.controlador.IControlador;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.utilidades.Dialogos;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
 public class ControladorAnadirProfesor {
-
-	private ObservableList<Profesor> obsProfesores;
 	
-	@FXML
-    private Button btnAnadir;
+    @FXML private TextField tfNombreProf;
+    @FXML private TextField tfApellidosProf;
+    @FXML private TextField tfTelefonoProf;
+    @FXML private TextField tfEmailProf;
+	ControladorVentanaPrincipal cVentanaPrincipal=null;
+	private IControlador controladorMVC;
 	
-	@FXML
-    private Button btnCancelar;
-	
-	
-	@FXML
-    private TextField tfCorreo;
-
-    @FXML
-    private TextField tfNombre;
-
-
-    @FXML
-    private TextField tfApellidos;
-
-    @FXML
-    private TextField tfTelefono;
-
-	
-	public void cargaDatosProfesor(Profesor p)
-	{
-		tfNombre.setText(p.getNombre());
-        tfApellidos.setText(p.getNombre());
-        tfTelefono.setText(p.getTelefono());
-        tfCorreo.setText(p.getCorreo());
-        
-        
+	public void setControladorVPrincipal(ControladorVentanaPrincipal controladorVPrincipal) {
+		cVentanaPrincipal=controladorVPrincipal;
 	}
 	
-	public void inicializaCampos() 
-	{
-		//Habilitamos los campos
-		tfNombre.setDisable(false);
-        tfApellidos.setDisable(false);
-        tfTelefono.setDisable(false);
-        tfCorreo.setDisable(false);
-        
+	public void setControladorMVC(IControlador controlador) {
+		controladorMVC=controlador;
 	}
-	
 
-	@FXML
-    void anadirClick(ActionEvent event) 
-	{
-		try
-        {
-            Profesor p=new Profesor(tfNombre.getText(),tfApellidos.getText(),tfTelefono.getText());
-        
-            //Se obtienen todos los profesores de la tabla 
-            obsProfesores.add(p);
-           
-			Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    	escenario.close();
-        }
-        catch (IllegalArgumentException | NullPointerException e)
-        {
- 
-            Dialogos.mostrarDialogoError("ERROR AÑADIR PROFESOR", e.getMessage());
-        }
-		
+	public void initialize() {
+		tfNombreProf.textProperty().addListener((ob, ov, nv) -> compruebaNombre(ov, nv));
+		tfApellidosProf.textProperty().addListener((ob, ov, nv) -> compruebaApellido(ov, nv));
+		tfEmailProf.textProperty().addListener((ob, ov, nv) -> compruebaEMail(ov, nv));
+		tfTelefonoProf.textProperty().addListener((ob, ov, nv) -> compruebaTelefono(ov, nv));
+	}
 
+    @FXML
+    void anadirProfesor(ActionEvent event) {
+    	Profesor profesor=null;
+    	try {
+    		profesor=crearProfesor();
+    		controladorMVC.insertarProfesor(profesor);
+			cVentanaPrincipal.actualizaTablas();
+			Stage propietario = ((Stage) btnAceptar.getScene().getWindow());
+			Dialogos.mostrarDialogoInformacion("Añadir Profesor", "Profesor añadido correctamente", propietario);
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Error", e.getMessage());
+			tfNombreProf.clear();
+			tfApellidosProf.clear();
+			tfEmailProf.clear();
+			tfTelefonoProf.clear();
+		}
+    
     }
 
     @FXML
-    void cerrar(ActionEvent event) 
-    {
-    	Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    	escenario.close();
+    void Cancelar(ActionEvent event) {
+    	((Stage) btnCancelar.getScene().getWindow()).close();
+    }
+
+    private void compruebaNombre (String ov, String nv) {
+		if (nv.matches("[^0-9]*")) {
+			tfNombreProf.setStyle("-fx-border-color: green");
+		} else{
+			tfNombreProf.setText(ov);
+			tfNombreProf.setStyle("-fx-border-color: red");
+		}
     }
     
-    public void ocultaBotones()
-    {
-    	btnAnadir.setVisible(false);
-    	btnCancelar.setVisible(false);
+    private void compruebaApellido (String ov, String nv) {
+		if (nv.matches("[^0-9]*")) {
+			tfApellidosProf.setStyle("-fx-border-color: green");
+		} else{
+			tfApellidosProf.setText(ov);
+			tfApellidosProf.setStyle("-fx-border-color: red");
+		}
     }
-
-
-	public void setControladorVentanaPrincipal(ControladorVentanaPrincipal controladorVentanaPrincipal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setControladorMVC(IControlador controladorMVC) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    
+    private void compruebaEMail (String ov, String nv) {
+		if (nv.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+			tfEmailProf.setStyle("-fx-border-color: green");
+		} else{
+			tfEmailProf.setStyle("-fx-border-color: red");
+		}
+    }
+    
+    private void compruebaTelefono (String ov, String nv) {
+		if (nv.matches("([0-9]{9})")) {
+			tfTelefonoProf.setStyle("-fx-border-color: green");
+		} else{
+			// inputTelfProf.setText(ov);
+			tfTelefonoProf.setStyle("-fx-border-color: red");
+		}
+    }
+    
+    private Profesor crearProfesor() {
+    	String nombre=tfNombreProf.getText();
+    	String apellido=tfApellidosProf.getText();
+    	String email=tfEmailProf.getText();
+    	String telefono=tfTelefonoProf.getText();
+    	Profesor profesor= new Profesor(nombre,email,telefono);
+    	return new Profesor(profesor);
+    }
+    
+    
+    @FXML private Button btnAceptar;
+    @FXML private Button btnCancelar;
+    // @FXML private TitledPane vAnadirProf;
 }

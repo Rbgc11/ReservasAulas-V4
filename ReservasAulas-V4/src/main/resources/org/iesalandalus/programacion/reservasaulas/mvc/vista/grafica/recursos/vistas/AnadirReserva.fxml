@@ -44,9 +44,9 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="NombreEsp" disable="true" prefHeight="32.0" prefWidth="315.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="TelefonoEsp" disable="true" layoutX="310.0" layoutY="166.0" prefHeight="31.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="AulaEsp" disable="true" prefHeight="31.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="tfNombreProf" disable="true" prefHeight="32.0" prefWidth="315.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="tfTelefonoProf" disable="true" layoutX="310.0" layoutY="166.0" prefHeight="31.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="tfNombre" disable="true" prefHeight="31.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="lbEmail1" alignment="CENTER_RIGHT" disable="true" prefHeight="27.0" prefWidth="165.0" text="Nombre Aula" textFill="#0026e4" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -55,8 +55,8 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="EmailEsp" disable="true" layoutX="171.0" layoutY="90.0" prefHeight="31.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="PuestoEsp" disable="true" layoutX="240.0" layoutY="21.0" prefHeight="32.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="tfEmailProf" disable="true" layoutX="171.0" layoutY="90.0" prefHeight="31.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="tfPuestos" disable="true" layoutX="240.0" layoutY="21.0" prefHeight="32.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="114.0" />

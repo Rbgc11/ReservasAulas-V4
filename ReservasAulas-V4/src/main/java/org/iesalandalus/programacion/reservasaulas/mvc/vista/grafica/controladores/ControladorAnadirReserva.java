@@ -1,125 +1,116 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.controladores;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.iesalandalus.programacion.reservasaulas.mvc.controlador.IControlador;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.utilidades.Dialogos;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ControladorAnadirReserva {
+	
+    @FXML private TextField tfNombreProf;
+    @FXML private TextField tfTelefonoProf;
+    @FXML private TextField tfEmailProf;
+    @FXML private TextField tfNombre;
+    @FXML private TextField tfPuestos;
+	ControladorVentanaPrincipal cVentanaPrincipal=null;
+	private IControlador controladorMVC;
+	
+	public void setControladorVPrincipal(ControladorVentanaPrincipal controladorVPrincipal) {
+		cVentanaPrincipal=controladorVPrincipal;
+	}
+	
+	public void setControladorMVC(IControlador controlador) {
+		controladorMVC=controlador;
+	}
 
-	private ObservableList<Reserva> obsReservas;
-	
-	@FXML
-    private Button btnAnadir;
-	
-	@FXML
-    private Button btnCancelar;
-	
-	
-	@FXML
-    private TextField tfCorreo;
+	public void initialize() {
+		tfNombreProf.textProperty().addListener((ob, ov, nv) -> compruebaNombre(ov, nv));
+		tfEmailProf.textProperty().addListener((ob, ov, nv) -> compruebaEMail(ov, nv));
+		tfTelefonoProf.textProperty().addListener((ob, ov, nv) -> compruebaTelefono(ov, nv));
+		tfNombre.textProperty().addListener((ob, ov, nv) -> compruebaNombre(ov, nv));
+		tfPuestos.textProperty().addListener((ob, ov, nv) -> compruebaPuestos(ov, nv));
+	}
 
     @FXML
-    private TextField tfNombre;
-
-
-    @FXML
-    private TextField tfNombreAula;
-
-    @FXML
-    private TextField tfTelefono;
+    void anadirReserva(ActionEvent event) {
+    	Reserva reserva=null;
+    	try {
+    		reserva=crearReserva();
+    		controladorMVC.insertarReserva(reserva);
+			cVentanaPrincipal.actualizaTablas();
+			Stage propietario = ((Stage) btnAnadir.getScene().getWindow());
+			Dialogos.mostrarDialogoInformacion("Añadir Reserva", "Reserva añadida correctamente", propietario);
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Error", e.getMessage());
+			tfNombreProf.clear();
+			tfEmailProf.clear();
+			tfTelefonoProf.clear();
+			tfNombre.clear();
+			tfPuestos.clear();
+		}
     
-
-	@FXML
-    private TextField tfPuestos;
-
-	
-	public void cargaDatosReserva(Profesor p, Aula a)
-	{
-		tfNombre.setText(p.getNombre());
-        tfTelefono.setText(p.getTelefono());
-        tfCorreo.setText(p.getCorreo());        
-        tfPuestos.setText(a.getPuestos());
-        tfNombreAula.setText(a.getNombre());     
-        
-	}
-	
-	public void inicializaCampos() 
-	{
-		//Habilitamos los campos
-		tfNombre.setDisable(false);
-        tfTelefono.setDisable(false);
-        tfCorreo.setDisable(false);
-        tfPuestos.setDisable(false);
-        tfNombreAula.setDisable(false);
-
-	}
-	
-
-	@FXML
-    void anadirClick(ActionEvent event) 
-	{
-		try
-        {
-            Reserva r=new Reserva(tfNombre.getText(),tfCorreo.getText(),tfTelefono.getText(),tfPuestos.getText(),tfNombreAula.getText());
-        
-            //Se obtienen todos los profesores de la tabla 
-            obsReservas.add(r);
-           
-			Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    	escenario.close();
-        }
-        catch (IllegalArgumentException | NullPointerException e)
-        {
- 
-            Dialogos.mostrarDialogoError("ERROR AÑADIR RESERVA", e.getMessage());
-        }
-		
-
     }
 
     @FXML
-    void cerrar(ActionEvent event) 
-    {
-    	Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    	escenario.close();
+    void Cancelar(ActionEvent event) {
+    	((Stage) btnCancelar.getScene().getWindow()).close();
+    }
+
+    private void compruebaNombre (String ov, String nv) {
+		if (nv.matches("[^0-9]*")) {
+			tfNombreProf.setStyle("-fx-border-color: green");
+		} else{
+			tfNombreProf.setText(ov);
+			tfNombreProf.setStyle("-fx-border-color: red");
+		}
     }
     
-    public void ocultaBotones()
-    {
-    	btnAnadir.setVisible(false);
-    	btnCancelar.setVisible(false);
+    
+    private void compruebaEMail (String ov, String nv) {
+		if (nv.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+			tfEmailProf.setStyle("-fx-border-color: green");
+		} else{
+			tfEmailProf.setStyle("-fx-border-color: red");
+		}
     }
-
-
-	public void setControladorVentanaPrincipal(ControladorVentanaPrincipal controladorVentanaPrincipal) {
-		// TODO Auto-generated method stub
-		
+    
+    private void compruebaTelefono (String ov, String nv) {
+		if (nv.matches("([0-9]{9})")) {
+			tfTelefonoProf.setStyle("-fx-border-color: green");
+		} else{
+			// inputTelfProf.setText(ov);
+			tfTelefonoProf.setStyle("-fx-border-color: red");
+		}
+    }
+    
+	private void compruebaPuestos(String oldValue, String newValue) {
+		if (newValue.matches("[0-9]*")) {
+			tfPuestos.setStyle("-fx-border-color: green");
+		} else{
+			tfPuestos.setText(oldValue);
+			tfPuestos.setStyle("-fx-border-color: red");
+		}
 	}
 
-	public void setControladorMVC(IControlador controladorMVC) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    
+    private Reserva crearReserva() {
+    	String nombre=tfNombreProf.getText();
+    	String email=tfEmailProf.getText();
+    	String telefono=tfTelefonoProf.getText();
+    	String aula=tfNombre.getText();
+    	String puestos=tfPuestos.getText();
+    	Reserva reserva= new Reserva(nombre,email,telefono,aula,puestos);
+    	return new Reserva(reserva);
+    }
+    
+    
+    @FXML private Button btnAnadir;
+    @FXML private Button btnCancelar;
+    // @FXML private TitledPane vAnadirProf;
 }

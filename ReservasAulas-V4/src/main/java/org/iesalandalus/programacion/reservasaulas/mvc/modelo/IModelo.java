@@ -17,7 +17,7 @@ public interface IModelo {
 	public void terminar();
 	
 	//Método getAulas
-	List<Aula> getAulas(Aula aula);
+	List<Aula> getAulas();
 
 
 	//Método getNumAulas
@@ -36,7 +36,7 @@ public interface IModelo {
 	void borrarAula(Aula aula) throws OperationNotSupportedException;
 	
 	//Método getProfesores
-	List<Profesor> getProfesores(Profesor profesor);
+	List<Profesor> getProfesores();
 
 	//Método getNumProfesores
 	int getNumProfesores();
@@ -53,7 +53,8 @@ public interface IModelo {
 	//Método borrarProfesor
 	void borrarProfesor(Profesor profesor) throws OperationNotSupportedException;
 
-	List<Reserva> getReservas(Reserva reserva);
+	// Método List<Reserva> 
+	List<Reserva> getReservas();
 	
 	//Método getReservas
 	int getNumReservas();

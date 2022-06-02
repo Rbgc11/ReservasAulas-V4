@@ -1,112 +1,89 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.controladores;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.iesalandalus.programacion.reservasaulas.mvc.controlador.IControlador;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.utilidades.Dialogos;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelo.*;
-import utilidades.Dialogos;
 
 public class ControladorAnadirAula {
-	
 
-	private ObservableList<Aula> obsAulas;
-	
-	@FXML
-    private Button btnAnadir;
-	
-	@FXML
-    private Button btnCancelar;
-	
-	
-	@FXML
-    private TextField tfPuestos;
+	@FXML private TextField tfNombre;
+	@FXML private TextField tfPuestos;
+	private ControladorVentanaPrincipal cVentanaPrincipal;
+	private IControlador controladorMVC;
 
-    @FXML
-    private TextField tfNombreAula;
-
-
-	
-	public void cargaDatosAula(Aula aula)
-	{
-		tfNombreAula.setText(aula.getNombre());
-        tfPuestos.setText(aula.getPuestos());
-        
-        
-	}
-	
-	public void inicializaCampos() 
-	{
-		//Habilitamos los campos
-		tfNombreAula.setDisable(false);
-        tfPuestos.setDisable(false);
-        
-	}
-	
-
-	@FXML
-    void anadirClick(ActionEvent event) 
-	{
-		try
-        {
-            Aula aula=new Aula(tfNombreAula.getText(),tfPuestos.getText());
-        
-            obsAulas.add(aula);
-            
-       
-			Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    	escenario.close();
-        }
-        catch (IllegalArgumentException | NullPointerException e)
-        {
-            /*System.out.println("Se ha producido algún error al añadir el profesor");
-            System.out.println(e.getMessage());*/
-            //VentanaAlerta.mostrar("ERROR", e.getMessage());
-            Dialogos.mostrarDialogoError("ERROR AÑADIR AULA", e.getMessage());
-        }
-		
-
-    }
-
-    @FXML
-    void cerrar(ActionEvent event) 
-    {
-    	Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    	escenario.close();
-    }
-    
-    public void ocultaBotones()
-    {
-    	btnAnadir.setVisible(false);
-    	btnCancelar.setVisible(false);
-    }
-
-	public void setControladorMVC(IControlador controladorMVC) {
-		// TODO Auto-generated method stub
-		
+	public void setControladorMVC(IControlador controlador) {
+		controladorMVC = controlador;
 	}
 
-	public void setControladorVentanaPrincipal(ControladorVentanaPrincipal controladorVentanaPrincipal) {
-		// TODO Auto-generated method stub
-		
+	//El controlador principal usa este método para enviarse a sí mismo y así poder actualizar sus tablas y demás
+	public void setControladorVentanaPrincipal(ControladorVentanaPrincipal cVentanaPrincipal) {
+		this.cVentanaPrincipal = cVentanaPrincipal;
 	}
 
+	//creamos un addlistener que nos comprabará los valores del campo puestos
+	public void initialize() {
+		tfPuestos.textProperty().addListener((ob, ov, nv) -> compruebaPuestos(ov, nv));
+	}
+
+	//La acción para añadir un aulea, toma los valores de getAula, llama al controlador para insertarla, actualiza la tabla de la ventana principal,
+	//y obtiene el Stage del botón aceptar para pasarlo como parámetro al diálogo de información, que nos comunica que todo ha sido correcto y cierra.
+	//Si hay cualquier error, muestra el mensaje en el diálogo correspondiente y limpia los texfields para intentarlo de nuevo.
+	@FXML
+	void acAnadirAula(ActionEvent event) {
+		Aula aula = null;
+		try {
+			aula = crearAula();
+			controladorMVC.insertarAula(aula);
+			cVentanaPrincipal.actualizaTablas();
+			Stage propietario = ((Stage) btnAnadir.getScene().getWindow());
+			Dialogos.mostrarDialogoInformacion("Añadir Aula", "Aula añadida correctamente", propietario);
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Error", e.getMessage());
+			tfNombre.clear();
+			tfPuestos.clear();
+		}
+	}
+
+	//Botón cancelar, toma el Stage de éste y la cierra.
+	@FXML
+	void acCancelar(ActionEvent event) {
+		((Stage) btnCancelar.getScene().getWindow()).close();
+	}
+
+	//Método que toma los valores de la ventana y crea un Aula con ellos. Si no puede convertir el String de puestos a un int, lo deja en 0
+	//para que nos salte el error más conveniente.
+	private Aula crearAula() {
+		Aula aula = null;
+		int puestos = 0;
+			String nombre = tfNombre.getText();
+			try {
+				puestos = Integer.valueOf(tfPuestos.getText());
+			} catch (Exception e){}
+			aula = new Aula(nombre, puestos);
+		return new Aula(aula);
+	}
+
+	//comprueba si el nuevo valor de puestos coincide con el match. Si es así, lo pone en verde y si no, lo pone en rojo.
+	private void compruebaPuestos(String oldValue, String newValue) {
+		if (newValue.matches("[0-9]*")) {
+			tfPuestos.setStyle("-fx-border-color: green");
+		} else{
+			tfPuestos.setText(oldValue);
+			tfPuestos.setStyle("-fx-border-color: red");
+		}
+	}
+
+	@FXML private Button btnAnadir;
+	@FXML private Button btnCancelar;
+
+	/*
+	 * @FXML private TitledPane vAnadirAula;
+	 */
 }

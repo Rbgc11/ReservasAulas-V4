@@ -41,7 +41,7 @@ import javax.naming.OperationNotSupportedException;
 			}
 			
 			@Override
-			public List<Aula> getAulas(Aula aula) {
+			public List<Aula> getAulas() {
 				return aulas.getAulas();
 		    }
 			@Override
@@ -69,7 +69,7 @@ import javax.naming.OperationNotSupportedException;
 		    }
 		    
 			@Override
-			public List<Profesor> getProfesores(Profesor profesor) {
+			public List<Profesor> getProfesores() {
 				return profesores.getProfesores();
 			}
 
@@ -99,7 +99,7 @@ import javax.naming.OperationNotSupportedException;
 		    }
 		    
 			@Override
-			public List<Reserva> getReservas(Reserva reserva) {
+			public List<Reserva> getReservas() {
 				return reservas.getReservas();
 			}
 

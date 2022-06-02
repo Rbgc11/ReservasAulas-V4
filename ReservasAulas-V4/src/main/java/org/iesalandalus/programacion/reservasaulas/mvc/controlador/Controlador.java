@@ -42,7 +42,12 @@ public class Controlador implements IControlador{
 		@Override
 		public void terminar() {
 			Imodelo.terminar();
-			//Ivista.salir();
+			System.out.println("¡Adiós!");
+		}
+		
+		@Override
+		public List<Aula> getAulas() {
+			return Imodelo.getAulas();
 		}
 
 		// Método insertarAula
@@ -136,21 +141,14 @@ public class Controlador implements IControlador{
 			return Imodelo.consultarDisponibilidad(aula, permanencia);
 		}
 
+		
 		@Override
-		public Profesor getProfesores() {
-			// TODO Auto-generated method stub
-			return null;
+		public List<Profesor> getProfesores() {
+			return Imodelo.getProfesores();
 		}
 
 		@Override
-		public Aula getAulas() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Reserva getReservas() {
-			// TODO Auto-generated method stub
-			return null;
+		public List<Reserva> getReservas() {
+			return Imodelo.getReservas();
 		}
 	}

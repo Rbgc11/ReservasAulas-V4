@@ -4,23 +4,21 @@ import org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.VistaGrafic
 import org.iesalandalus.programacion.reservasaulas.mvc.vista.texto.VistaTexto;
 
 public enum FactoriaVista {
-	TEXTO {
-		@Override
-		public IVista crear() {
-			IVista texto=new VistaTexto();
-			return texto;
-		}
-	},
+	 TEXTO {
+		  @Override
+		  public IVista crear() {
+		   return new VistaTexto();
+		  }
+		 },
+		 
+	 GRAFICA {
 
-	GRAFICA {
-		@Override
-		public IVista crear() {
-			IVista grafica=new VistaGrafica();
-			return grafica;
-		}
-	};
-	
-	public abstract IVista crear();
-	
-	
+		  @Override
+		  public IVista crear() {
+		   return new VistaGrafica();
+		  }
+		 };
+		 
+		 public abstract IVista crear();
+		
 }

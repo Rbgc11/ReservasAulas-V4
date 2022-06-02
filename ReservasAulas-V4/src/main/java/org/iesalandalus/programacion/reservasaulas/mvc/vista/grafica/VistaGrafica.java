@@ -33,21 +33,19 @@ public class VistaGrafica extends Application implements IVista {
 		controladorMVC.terminar();
 	}
 
-	// Creamos el escenario principal, cargando el FMXL, pasándole el controladorMVC al controlador correspondiente y actualizando las tablas de dicho
-	// controlador de paso. Creamos un closeRequest setteamos la escena y la mostramos. Capturamos cualquier error con try/catch
+	// Creamos el escenario principal
 	@Override
 	public void start(Stage escenarioPrincipal){
 		try {
 			FXMLLoader cargadorVentanaPrincipal=new FXMLLoader(LocalizadorRecursos.class.getResource("/vistas/vPrincipal.fxml"));
 			VBox raiz=cargadorVentanaPrincipal.load();
-			ControladorVentanaPrincipal controladorVentanaPrincipal=cargadorVentanaPrincipal.getController();
-			controladorVentanaPrincipal.setControladorMVC(controladorMVC);
-			controladorVentanaPrincipal.inicializa();
+			ControladorVentanaPrincipal cVentanaPrincipal=cargadorVentanaPrincipal.getController();
+			cVentanaPrincipal.setControladorMVC(controladorMVC);
+			cVentanaPrincipal.actualizaTablas();
 			
 			Scene escena=new Scene(raiz);
-			escena.getStylesheets().add(LocalizadorRecursos.class.getResource("estilos/estilos.css").toExternalForm());
 			escenarioPrincipal.setOnCloseRequest(e -> confirmarSalida(escenarioPrincipal, e));
-			escenarioPrincipal.setTitle("Escenario Principal");
+			escenarioPrincipal.setTitle("Gestión reservas");
 			escenarioPrincipal.setScene(escena);
 			escenarioPrincipal.setResizable(false);
 			escenarioPrincipal.show();

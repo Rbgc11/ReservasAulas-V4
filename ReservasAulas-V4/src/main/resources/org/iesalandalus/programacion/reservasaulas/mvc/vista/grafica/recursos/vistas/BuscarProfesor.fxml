@@ -24,8 +24,8 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="inputBuscarProf" prefHeight="25.0" prefWidth="230.0" />
-            <Button fx:id="btnBuscarProfesor" mnemonicParsing="false" onAction="#acBuscarProf" text="Buscar Profesor" />
+            <TextField fx:id="tfBuscarProf" prefHeight="25.0" prefWidth="230.0" />
+            <Button fx:id="btnBuscarProfesor" mnemonicParsing="false" onAction="#BuscarProf" text="Buscar Profesor" />
          </children>
          <VBox.margin>
             <Insets left="10.0" top="10.0" />
