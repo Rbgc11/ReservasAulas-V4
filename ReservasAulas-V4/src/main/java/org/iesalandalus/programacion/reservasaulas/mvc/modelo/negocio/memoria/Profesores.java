@@ -40,16 +40,14 @@ public class Profesores implements IProfesores {
 	
 	// Método copiaProfundaProfesores
 	private List<Profesor> copiaProfundaProfesores(List<Profesor> listaProfesores) {
-		List<Profesor> copiaProProfesores = new ArrayList<>();
-		Comparator<Profesor> comparador=Comparator.comparing(Profesor::getCorreo);
-		Collections.sort(coleccionProfesores, comparador);
+		List<Profesor> copiaPro = new ArrayList<Profesor>();
 		Iterator<Profesor> iterador = listaProfesores.iterator();
-		while (iterador.hasNext()) {
-			copiaProProfesores.add(new Profesor(iterador.next()));
-		}
-		return copiaProProfesores;
-	}
 
+		while (iterador.hasNext()) {
+			copiaPro.add(new Profesor(iterador.next()));
+		}
+		return copiaPro;
+	}
 	// Método List<Profesor> getProfesores()
 	public List<Profesor> getProfesores() {
 		return copiaProfundaProfesores(coleccionProfesores);
@@ -63,19 +61,21 @@ public class Profesores implements IProfesores {
 
 	// Método insertar
 	public void insertar(Profesor profesor) throws OperationNotSupportedException {
-		if (profesor == null) {
-			throw new NullPointerException("No se puede insertar un profesor nulo.");
-		} else if  (!coleccionProfesores.contains(profesor)) {
-			coleccionProfesores.add(new Profesor(profesor));
-		} else {
-			throw new OperationNotSupportedException("Ya existe un profesor con ese nombre.");
+		if(profesor == null) {
+			throw new NullPointerException("ERROR: No se puede insertar un profesor nulo.");
 		}
+		
+		if(coleccionProfesores.contains(profesor)) {
+			throw new OperationNotSupportedException("ERROR: Ya existe un profesor con ese correo.");
+		}
+		
+		coleccionProfesores.add(new Profesor(profesor));
 	}
 
 	// Método buscar
 	public Profesor buscar(Profesor profesor) {
 		if (profesor == null) {
-			throw new NullPointerException(" No se puede buscar un profesor nulo.");
+			throw new NullPointerException("ERROR: No se puede buscar un profesor nulo.");
 		}
 		Iterator<Profesor> iterador = coleccionProfesores.iterator();
 
@@ -87,6 +87,7 @@ public class Profesores implements IProfesores {
 		}
 		return null;
 	}
+
 
 	// Método borrar
 	public void borrar(Profesor profesor) throws OperationNotSupportedException {

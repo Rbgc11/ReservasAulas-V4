@@ -20,8 +20,8 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
 public class Reservas implements IReservas{
 	// Atributos
-	private static final float MAX_PUNTOS_PROFESOR_MES = 150.0f;
-	private List<Reserva> coleccionReservas = new ArrayList<>();
+	private static final float MAX_PUNTOS_PROFESOR_MES = 200f;
+	private List<Reserva> coleccionReservas;
 
 	// Constructor por defecto
 	public Reservas() {
@@ -92,7 +92,7 @@ public class Reservas implements IReservas{
 				throw new OperationNotSupportedException(
 						" Sólo se pueden hacer reservas para el mes que viene o posteriores.");
 			}
-			if (getPuntosGastadosReserva(reserva) > MAX_PUNTOS_PROFESOR_MES) {
+			if ((getPuntosGastadosReserva(reserva) + reserva.getPuntos()) > MAX_PUNTOS_PROFESOR_MES) {
 				throw new OperationNotSupportedException(
 						" Esta reserva supera los puntos máximos por mes para dicho profesor.");
 			}
@@ -122,20 +122,8 @@ public class Reservas implements IReservas{
 	
 	//Método getPuntosGastadosReserva
 	private float getPuntosGastadosReserva(Reserva reserva) {
-		List<Reserva> listadoReservasProfesor = getReservasProfesorMes(reserva.getProfesor(),
-				reserva.getPermanencia().getDia());
-
-		float sumaPuntosTotales = 0;
-
-		Iterator<Reserva> iterador = listadoReservasProfesor.iterator();
-
-		while (iterador.hasNext()) {
-			sumaPuntosTotales = sumaPuntosTotales + iterador.next().getPuntos();
-		}
-
-		return sumaPuntosTotales;
+		return reserva.getPuntos();
 	}
-	
 
 	// Método List<Reserva> getReservasProfesorMes
 	private List<Reserva> getReservasProfesorMes(Profesor profesor, LocalDate fecha) {
@@ -264,14 +252,18 @@ public class Reservas implements IReservas{
 	}
 
 	// Método consultarDisponibilidad(Aula,Permanencia)
+	@Override
 	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 		if (aula == null) {
-			throw new NullPointerException("No se puede consultar la disponibilidad de un aula nula.");
-		} else if (permanencia == null) {
-			throw new NullPointerException("No se puede consultar la disponibilidad de una permanencia nula.");
+			throw new NullPointerException("ERROR: No se puede consultar la disponibilidad de un aula nula.");
 		}
+
+		if (permanencia == null) {
+			throw new NullPointerException("ERROR: No se puede consultar la disponibilidad de una permanencia nula.");
+		}
+
 		boolean disponibilidad = true;
-		
+
 		Iterator<Reserva> iterador = coleccionReservas.iterator();
 		while (iterador.hasNext()) {
 			Reserva comprobar = iterador.next();
@@ -279,7 +271,7 @@ public class Reservas implements IReservas{
 				disponibilidad = false;
 			}
 		}
-	
+
 		return disponibilidad;
 	}
 	@Override

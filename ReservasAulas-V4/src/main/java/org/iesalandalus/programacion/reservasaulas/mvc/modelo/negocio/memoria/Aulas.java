@@ -39,17 +39,15 @@ public class Aulas implements IAulas{
 		}
 		// Método getAulas		
 		public List<Aula> getAulas() {
-			return copiaProfundaAulas(coleccionAulas);
+			List<Aula> lista = copiaProfundaAulas(coleccionAulas);
+			lista.sort(Comparator.comparing(Aula::getNombre));
+			return lista;
 		}
 
 	    
 		// Método copiaProfundaAulas
 		private List<Aula> copiaProfundaAulas(List<Aula> listaAulas) {
-			List<Aula> copiaProAulas = new ArrayList<>();
-			
-			Comparator<Aula> comparador=Comparator.comparing(Aula::getNombre);
-			Collections.sort(coleccionAulas, comparador);
-			
+			List<Aula> copiaProAulas = new ArrayList<Aula>();
 			Iterator<Aula> iterador = listaAulas.iterator();
 			while (iterador.hasNext()) {
 				copiaProAulas.add(new Aula(iterador.next()));
@@ -64,15 +62,18 @@ public class Aulas implements IAulas{
 		}
 	    
 
+
 		// Método insertar
 		public void insertar(Aula aula) throws OperationNotSupportedException {
 			if (aula == null) {
 				throw new NullPointerException(" No se puede insertar un aula nula.");
-			} else if (!coleccionAulas.contains(aula)) {
-				coleccionAulas.add(new Aula(aula));
-			} else {
-				throw new OperationNotSupportedException(" Ya existe un aula con ese nombre.");
 			}
+			
+			if(coleccionAulas.contains(aula)) {
+				throw new OperationNotSupportedException("ERROR: Ya existe un aula con ese nombre.");
+			}
+			
+			coleccionAulas.add(new Aula(aula));
 		}
 	    
 	   
@@ -81,15 +82,14 @@ public class Aulas implements IAulas{
 			if (aula == null) {
 				throw new NullPointerException("No se puede buscar un aula nula.");
 			}
-			// Se mira si hay un Aula que existe en coleccionAulas
-			Aula aulaEncontrada = null;
-			int indice = coleccionAulas.indexOf(aula);
-			if (indice == -1) {
-				aulaEncontrada = null;
-			} else {
-				aulaEncontrada = new Aula(coleccionAulas.get(indice));
+			Iterator<Aula> iterador = coleccionAulas.iterator();
+			while (iterador.hasNext()) {
+				Aula aulaBuscada = iterador.next();
+				if (aula.equals(aulaBuscada)) {
+					return new Aula(aulaBuscada);
+				}
 			}
-			return aulaEncontrada;
+			return null;
 		}
 	    
 		// Método borrar
