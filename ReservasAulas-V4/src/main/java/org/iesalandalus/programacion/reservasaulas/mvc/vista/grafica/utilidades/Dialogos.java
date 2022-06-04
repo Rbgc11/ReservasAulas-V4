@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class Dialogos {
 	
-	private static final String CSS = "estilos/estilos.css";
+	private static final String CSS = "/org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.recursos.estilos/estilos.css";
 	private static final String ID_BT_ACEPTAR = "btnAceptar";
 	private static final String ID_BT_CANCELAR = "btnCancelar";
 	

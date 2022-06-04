@@ -27,6 +27,8 @@ public class Reserva implements Comparable<Reserva>, Serializable {
 		}
 	}
 
+
+
 	//Setter y Getters
 	private void setProfesor(Profesor profesor)  {
 		if (profesor == null) {

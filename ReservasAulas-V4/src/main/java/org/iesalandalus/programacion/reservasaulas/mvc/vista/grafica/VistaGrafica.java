@@ -37,7 +37,7 @@ public class VistaGrafica extends Application implements IVista {
 	@Override
 	public void start(Stage escenarioPrincipal){
 		try {
-			FXMLLoader cargadorVentanaPrincipal=new FXMLLoader(LocalizadorRecursos.class.getResource("/vistas/vPrincipal.fxml"));
+			FXMLLoader cargadorVentanaPrincipal=new FXMLLoader(LocalizadorRecursos.class.getResource("org.iesalandalus.programacion.reservasaulas.mvc.vista.grafica.recursos.vistas/VentanaPrincipal.fxml"));
 			VBox raiz=cargadorVentanaPrincipal.load();
 			ControladorVentanaPrincipal cVentanaPrincipal=cargadorVentanaPrincipal.getController();
 			cVentanaPrincipal.setControladorMVC(controladorMVC);

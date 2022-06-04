@@ -12,16 +12,41 @@ import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 
+//public class MainApp {
+
+//public static void main(String[] args)  {
+//	System.out.println("Programa para la gestión de reservas de espacios del IES Al-Ándalus");
+
+//	IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
+	//IVista vista = new Vista();
+	//IControlador controlador = new Controlador(modelo, vista);
+	//controlador.comenzar();	
+//}
+
+
+//}
+
 public class MainApp {
 
-public static void main(String[] args)  {
-	System.out.println("Programa para la gestión de reservas de espacios del IES Al-Ándalus");
+	public static void main(String[] args)  {
+		System.out.println("Programa para la gestión de reservas de espacios del IES Al-Ándalus");
 
-	IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
-	IVista vista = new Vista();
-	IControlador controlador = new Controlador(modelo, vista);
-	controlador.comenzar();	
-}
-
+		IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
+		IVista vista = procesarArgumentosVista(args);
+		IControlador controlador = new Controlador(modelo, vista);
+		controlador.comenzar();	
+	}
+	
+	private static IVista procesarArgumentosVista(String[] args) {
+		IVista vista = FactoriaVista.GRAFICA.crear();
+		for (String argumento : args) {
+			if (argumento.equalsIgnoreCase("-vgrafica")) {
+				vista = FactoriaVista.GRAFICA.crear();
+			} else if (argumento.equalsIgnoreCase("-vtexto")) {
+				vista = FactoriaVista.TEXTO.crear();
+			}
+		}
+		return vista;
+	}
 
 }

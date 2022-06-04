@@ -185,7 +185,7 @@ public class ControladorVentanaPrincipal {
 		TitledPane raizAnadirProf=cVentanaAnadirProf.load();
 		cAnadirProf=cVentanaAnadirProf.getController();
 		cAnadirProf.setControladorMVC(controladorMVC);
-		cAnadirProf.setControladorVentanaPrincipal(this);
+		cAnadirProf.setControladorVPrincipal(this);
 		
 		Scene escenaAnadirProf=new Scene(raizAnadirProf);
 		anadirProfesor.setTitle("Añadir Profesor");
@@ -205,7 +205,7 @@ public class ControladorVentanaPrincipal {
 		VBox raizAnadirReserva=cVentanaAnadirReserva.load();
 		cAnadirReserva=cVentanaAnadirReserva.getController();
 		cAnadirReserva.setControladorMVC(controladorMVC);
-		cAnadirReserva.setControladorVentanaPrincipal(this);
+		cAnadirReserva.setControladorVPrincipal(this);
 		cAnadirReserva.actualizaTablasReserva();
 		
 		Scene escenaAnadirReserva=new Scene(raizAnadirReserva);

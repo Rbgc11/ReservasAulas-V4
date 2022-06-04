@@ -42,7 +42,7 @@ public class ControladorAnadirReserva {
     	Reserva reserva=null;
     	try {
     		reserva=crearReserva();
-    		controladorMVC.insertarReserva(reserva);
+    		controladorMVC.realizarReserva(reserva);
 			cVentanaPrincipal.actualizaTablas();
 			Stage propietario = ((Stage) btnAnadir.getScene().getWindow());
 			Dialogos.mostrarDialogoInformacion("Añadir Reserva", "Reserva añadida correctamente", propietario);
@@ -57,6 +57,10 @@ public class ControladorAnadirReserva {
     
     }
 
+	public void actualizaTablasReserva() {
+
+	}
+	
     @FXML
     void Cancelar(ActionEvent event) {
     	((Stage) btnCancelar.getScene().getWindow()).close();
@@ -105,7 +109,7 @@ public class ControladorAnadirReserva {
     	String telefono=tfTelefonoProf.getText();
     	String aula=tfNombre.getText();
     	String puestos=tfPuestos.getText();
-    	Reserva reserva= new Reserva(nombre,email,telefono,aula,puestos);
+    	Reserva reserva= new Reserva(nombre);
     	return new Reserva(reserva);
     }
     
