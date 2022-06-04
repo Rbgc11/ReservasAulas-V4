@@ -12,41 +12,39 @@ import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 
-//public class MainApp {
-
-//public static void main(String[] args)  {
-//	System.out.println("Programa para la gestión de reservas de espacios del IES Al-Ándalus");
-
-//	IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
-	//IVista vista = new Vista();
-	//IControlador controlador = new Controlador(modelo, vista);
-	//controlador.comenzar();	
-//}
-
-
-//}
-
 public class MainApp {
 
-	public static void main(String[] args)  {
-		System.out.println("Programa para la gestión de reservas de espacios del IES Al-Ándalus");
-
-		IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
+	public static void main(String[] args) {
+		IModelo modelo = new Modelo(procesarArgumentosModelo(args));
 		IVista vista = procesarArgumentosVista(args);
 		IControlador controlador = new Controlador(modelo, vista);
-		controlador.comenzar();	
+		controlador.comenzar();
 	}
-	
-	private static IVista procesarArgumentosVista(String[] args) {
-		IVista vista = FactoriaVista.GRAFICA.crear();
+
+	private static IFuenteDatos procesarArgumentosModelo(String[] args) {
+		IFuenteDatos fDatos = null;
 		for (String argumento : args) {
-			if (argumento.equalsIgnoreCase("-vgrafica")) {
-				vista = FactoriaVista.GRAFICA.crear();
-			} else if (argumento.equalsIgnoreCase("-vtexto")) {
-				vista = FactoriaVista.TEXTO.crear();
+			if (argumento.equals("-mMemoria")) {
+				fDatos = FactoriaFuenteDatos.MEMORIA.crear();
+			} else if (argumento.equals("-mFicheros")) {
+				fDatos = FactoriaFuenteDatos.FICHEROS.crear();
+			}
+		}
+		return fDatos;
+	}
+
+	private static IVista procesarArgumentosVista(String[] args) {
+		IVista vista=null;
+		for(String argumento : args) {
+			if(argumento.equals("-vGrafica")) {
+				vista=FactoriaVista.GRAFICA.crear();
+			}
+			else if (argumento.equals("-vTexto")) {
+				vista=FactoriaVista.TEXTO.crear();
 			}
 		}
 		return vista;
 	}
-
+	
+	
 }

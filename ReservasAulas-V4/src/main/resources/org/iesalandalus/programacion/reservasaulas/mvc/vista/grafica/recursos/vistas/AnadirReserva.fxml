@@ -90,12 +90,12 @@
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="796.0" spacing="10.0">
                      <children>
-                        <RadioButton fx:id="Horas" mnemonicParsing="false" onAction="#acPorHoras" prefHeight="25.0" prefWidth="105.0" text="Por horas">
+                        <RadioButton fx:id="selHoras" mnemonicParsing="false" onAction="#acPorHoras" prefHeight="25.0" prefWidth="105.0" text="Por horas">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <ComboBox fx:id="inputHoras" disable="true" onAction="#acHora" prefWidth="150.0" promptText="Elgie una hora" visibleRowCount="5">
+                        <ComboBox fx:id="Horas" disable="true" onAction="#acHora" prefWidth="150.0" promptText="Elgie una hora" visibleRowCount="5">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -109,12 +109,12 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </DatePicker>
-                        <RadioButton fx:id="Tramo" mnemonicParsing="false" onAction="#acPorTramo" prefHeight="25.0" prefWidth="106.0" text="Por tramo">
+                        <RadioButton fx:id="selTramo" mnemonicParsing="false" onAction="#acPorTramo" prefHeight="25.0" prefWidth="106.0" text="Por tramo">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <ComboBox fx:id="inputTramo" disable="true" onAction="#acTramo" prefWidth="150.0" promptText="Elgie un tramo" visibleRowCount="5">
+                        <ComboBox fx:id="Tramo" disable="true" onAction="#acTramo" prefWidth="150.0" promptText="Elgie un tramo" visibleRowCount="5">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
